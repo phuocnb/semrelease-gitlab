@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  semantic-release-gitlab:
+    image: node:lts
+    container_name: semantic-release-gitlab
+    tty: true
+    volumes:
+      - ./:/home/node/gitlab
+    working_dir: /home/node/gitlab

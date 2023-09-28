@@ -1,0 +1,28 @@
+{
+  "name": "Semantic Release - Gitlab",
+  "dockerComposeFile": ["compose.yml"],
+  "service": "semantic-release-gitlab",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"GitHub.vscode-pull-request-github",
+		"GitHub.remotehub"
+	],
+      "settings": {
+        "editor.quickSuggestionsDelay": 1,
+        "eslint.alwaysShowStatus": true,
+        "eslint.format.enable": true,
+        "files.eol": "\n",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "javascript.suggest.autoImports": false,
+        "editor.detectIndentation": true,
+        "editor.tabSize": 2
+      }
+    }
+  },
+  "workspaceFolder": "/home/node/gitlab",
+  "postStartCommand": "npm install"
+}

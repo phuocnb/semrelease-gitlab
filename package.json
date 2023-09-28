@@ -1,0 +1,101 @@
+{
+  "name": "@phuocnb/semrelease-gitlab",
+  "description": "semantic-release plugin to publish a GitLab release",
+  "version": "0.0.0-development",
+  "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
+  "type": "module",
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/semantic-release/gitlab/issues"
+  },
+  "contributors": [
+    "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
+    "Gregor Martynus (https://twitter.com/gr2m)"
+  ],
+  "dependencies": {
+    "@semantic-release/error": "^4.0.0",
+    "aggregate-error": "^5.0.0",
+    "debug": "^4.0.0",
+    "dir-glob": "^3.0.0",
+    "escape-string-regexp": "^5.0.0",
+    "form-data": "^4.0.0",
+    "fs-extra": "^11.0.0",
+    "globby": "^11.0.0",
+    "got": "^13.0.0",
+    "hpagent": "^1.0.0",
+    "lodash-es": "^4.17.21",
+    "parse-url": "^8.0.0",
+    "semver": "^7.3.2",
+    "url-join": "^4.0.0"
+  },
+  "devDependencies": {
+    "ava": "5.3.1",
+    "c8": "8.0.1",
+    "nock": "13.3.3",
+    "prettier": "3.0.3",
+    "semantic-release": "22.0.5",
+    "sinon": "16.0.0",
+    "tempy": "1.0.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "lib",
+    "index.js"
+  ],
+  "homepage": "https://github.com/semantic-release/gitlab#readme",
+  "keywords": [
+    "git",
+    "gitlab",
+    "publish",
+    "release",
+    "semantic-release",
+    "version"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "c8": {
+    "include": [
+      "lib/**/*.js",
+      "index.js",
+      "cli.js"
+    ],
+    "reporter": [
+      "json",
+      "text",
+      "html"
+    ],
+    "all": true
+  },
+  "prettier": {
+    "printWidth": 120,
+    "trailingComma": "es5"
+  },
+  "peerDependencies": {
+    "semantic-release": ">=20.1.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/semantic-release/gitlab.git"
+  },
+  "scripts": {
+    "lint": "prettier --check \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
+    "lint:fix": "prettier --write \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
+    "semantic-release": "semantic-release",
+    "test": "c8 ava --verbose"
+  },
+  "renovate": {
+    "extends": [
+      "github>semantic-release/.github"
+    ]
+  }
+}
