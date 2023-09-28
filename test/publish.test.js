@@ -92,12 +92,15 @@ test.serial("Publish a release with generics", async (t) => {
   const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
   const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
-  const encodedVersion = encodeURIComponent(nextRelease.version);
+
+  const packageName = "release";
+  const packageVersion = nextRelease.version;
+  const fileName = "file.css";
+
   const uploaded = { file: { url: "/uploads/file.css" } };
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
-  const encodedLabel = encodeURIComponent(generic.label);
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedRepoId}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -115,7 +118,7 @@ test.serial("Publish a release with generics", async (t) => {
     .reply(200);
   const gitlabUpload = authenticate(env)
     .put(
-      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
+      `/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}?status=${generic.status}&select=package_file`,
       /\.test\s\{\}/gm
     )
     .reply(200, uploaded);
@@ -138,12 +141,15 @@ test.serial("Publish a release with generics and external storage provider (http
   const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
   const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
-  const encodedVersion = encodeURIComponent(nextRelease.version);
+
+  const packageName = "release";
+  const packageVersion = nextRelease.version;
+  const fileName = "file.css";
+
   const uploaded = { file: { url: "http://aws.example.com/bucket/gitlab/file.css" } };
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
-  const encodedLabel = encodeURIComponent(generic.label);
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedRepoId}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -161,7 +167,7 @@ test.serial("Publish a release with generics and external storage provider (http
     .reply(200);
   const gitlabUpload = authenticate(env)
     .put(
-      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
+      `/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}?status=${generic.status}&select=package_file`,
       /\.test\s\{\}/gm
     )
     .reply(200, uploaded);
@@ -184,12 +190,16 @@ test.serial("Publish a release with generics and external storage provider (http
   const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
   const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
-  const encodedVersion = encodeURIComponent(nextRelease.version);
+
+  const packageName = "release";
+  const packageVersion = nextRelease.version;
+  const fileName = "file.css";
+
   const uploaded = { file: { url: "https://aws.example.com/bucket/gitlab/file.css" } };
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
-  const encodedLabel = encodeURIComponent(generic.label);
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedRepoId}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -207,7 +217,7 @@ test.serial("Publish a release with generics and external storage provider (http
     .reply(200);
   const gitlabUpload = authenticate(env)
     .put(
-      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
+      `/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}?status=${generic.status}&select=package_file`,
       /\.test\s\{\}/gm
     )
     .reply(200, uploaded);
@@ -230,12 +240,15 @@ test.serial("Publish a release with generics and external storage provider (ftp)
   const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
   const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
-  const encodedVersion = encodeURIComponent(nextRelease.version);
+
+  const packageName = "release";
+  const packageVersion = nextRelease.version;
+  const fileName = "file.css";
+
   const uploaded = { file: { url: "ftp://drive.example.com/gitlab/file.css" } };
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
-  const encodedLabel = encodeURIComponent(generic.label);
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedRepoId}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -253,7 +266,7 @@ test.serial("Publish a release with generics and external storage provider (ftp)
     .reply(200);
   const gitlabUpload = authenticate(env)
     .put(
-      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
+      `/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}?status=${generic.status}&select=package_file`,
       /\.test\s\{\}/gm
     )
     .reply(200, uploaded);
