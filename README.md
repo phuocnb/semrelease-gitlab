@@ -1,10 +1,57 @@
-# @semantic-release/gitlab
+# Notice
+
+This is a fork from [@semantic-release/gitlab](https://github.com/semantic-release/gitlab)
+
+I created this one for my specific usecase.
+
+It should be deleted if the main repo accept my [Pull Request](https://github.com/semantic-release/gitlab/pull/607)
+
+# My customization
+
+According to gitlab url format:
+`/projects/:id/packages/generic/:package_name/:package_version/:file_name?status=:status`
+
+What i did:
+
+- `package_name` equal to `channel` (release, alpha, beta, rc, etc)
+- `package_version` always requires in format `major.minor.patch` (required from gitlab generic package upload)
+- `file_name` use the basename (with extension) of actually uploading file. This will support multiple file uploading via 1 label config.
+
+For example:
+
+When a new version release like `v1.1.0-alpha.1`, and you want to upload a file `package.zip` to the gitlab generic package registry, you should add this configuration to `.releaserc` file under `plugins` section
+
+```
+[
+  "@phuocnb/semrelease-gitlab",
+  {
+    "gitlabUrl": "https://gitlab.com",
+    "assets": [
+      {
+        "path": "package.zip",
+        "label": "v${nextRelease.version} Offline Package",
+        "target": "generic_package"
+      }
+    ]
+  }
+]
+```
+
+The plugin then will upload `package.zip` to generic package registry with
+
+- **package_name**: alpha
+- **package_version**: 1.1.0
+- **file_name**: package.zip
+
+The release asset also has a download link that should point directly to the `package.zip` file that you want to release.
+
+# @phuocnb/semrelease-gitlab
 
 [**semantic-release**](https://github.com/semantic-release/semantic-release) plugin to publish a
 [GitLab release](https://docs.gitlab.com/ee/user/project/releases/).
 
-[![Build Status](https://github.com/semantic-release/gitlab/workflows/Test/badge.svg)](https://github.com/semantic-release/gitlab/actions?query=workflow%3ATest+branch%3Amaster) [![npm latest version](https://img.shields.io/npm/v/@semantic-release/gitlab/latest.svg)](https://www.npmjs.com/package/@semantic-release/gitlab)
-[![npm next version](https://img.shields.io/npm/v/@semantic-release/gitlab/next.svg)](https://www.npmjs.com/package/@semantic-release/gitlab)
+[![Build Status](https://github.com/phuocnb/semrelease-gitlab/workflows/Test/badge.svg)](https://github.com/phuocnb/semrelease-gitlab/actions?query=workflow%3ATest+branch%3Amaster) [![npm latest version](https://img.shields.io/npm/v/@phuocnb/semrelease-gitlab/latest.svg)](https://www.npmjs.com/package/@phuocnb/semrelease-gitlab)
+[![npm next version](https://img.shields.io/npm/v/@phuocnb/semrelease-gitlab/next.svg)](https://www.npmjs.com/package/@phuocnb/semrelease-gitlab)
 
 | Step               | Description                                                                                                                                         |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -16,7 +63,7 @@
 ## Install
 
 ```bash
-$ npm install @semantic-release/gitlab -D
+$ npm install @phuocnb/semrelease-gitlab -D
 ```
 
 ## Usage
@@ -30,7 +77,7 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
-      "@semantic-release/gitlab",
+      "@phuocnb/semrelease-gitlab",
       {
         "gitlabUrl": "https://custom.gitlab.com",
         "assets": [
