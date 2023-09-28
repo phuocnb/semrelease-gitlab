@@ -8,7 +8,10 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "GitHub.vscode-pull-request-github",
-        "GitHub.remotehub"
+        "GitHub.remotehub",
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "huizhou.githd"
       ],
       "settings": {
         "editor.quickSuggestionsDelay": 1,

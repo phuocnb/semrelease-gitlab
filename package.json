@@ -10,7 +10,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/semantic-release/gitlab/issues"
+    "url": "https://github.com/phuocnb/semrelease-gitlab/issues"
   },
   "contributors": [
     "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
@@ -48,7 +48,7 @@
     "lib",
     "index.js"
   ],
-  "homepage": "https://github.com/semantic-release/gitlab#readme",
+  "homepage": "https://github.com/phuocnb/semrelease-gitlab#readme",
   "keywords": [
     "git",
     "gitlab",
@@ -85,7 +85,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/semantic-release/gitlab.git"
+    "url": "https://github.com/phuocnb/semrelease-gitlab.git"
   },
   "scripts": {
     "lint": "prettier --check \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
