@@ -92,15 +92,12 @@ test.serial("Publish a release with generics", async (t) => {
   const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
   const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
-
-  const packageName = "release";
-  const packageVersion = nextRelease.version;
-  const fileName = "file.css";
-
+  const encodedVersion = encodeURIComponent(nextRelease.version);
   const uploaded = { file: { url: "/uploads/file.css" } };
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}`;
+  const encodedLabel = encodeURIComponent(generic.label);
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedRepoId}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -118,7 +115,7 @@ test.serial("Publish a release with generics", async (t) => {
     .reply(200);
   const gitlabUpload = authenticate(env)
     .put(
-      `/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}?status=${generic.status}&select=package_file`,
+      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
       /\.test\s\{\}/gm
     )
     .reply(200, uploaded);
@@ -141,15 +138,12 @@ test.serial("Publish a release with generics and external storage provider (http
   const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
   const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
-
-  const packageName = "release";
-  const packageVersion = nextRelease.version;
-  const fileName = "file.css";
-
+  const encodedVersion = encodeURIComponent(nextRelease.version);
   const uploaded = { file: { url: "http://aws.example.com/bucket/gitlab/file.css" } };
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}`;
+  const encodedLabel = encodeURIComponent(generic.label);
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedRepoId}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -167,7 +161,7 @@ test.serial("Publish a release with generics and external storage provider (http
     .reply(200);
   const gitlabUpload = authenticate(env)
     .put(
-      `/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}?status=${generic.status}&select=package_file`,
+      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
       /\.test\s\{\}/gm
     )
     .reply(200, uploaded);
@@ -190,16 +184,12 @@ test.serial("Publish a release with generics and external storage provider (http
   const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
   const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
-
-  const packageName = "release";
-  const packageVersion = nextRelease.version;
-  const fileName = "file.css";
-
+  const encodedVersion = encodeURIComponent(nextRelease.version);
   const uploaded = { file: { url: "https://aws.example.com/bucket/gitlab/file.css" } };
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
-
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}`;
+  const encodedLabel = encodeURIComponent(generic.label);
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedRepoId}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -217,7 +207,7 @@ test.serial("Publish a release with generics and external storage provider (http
     .reply(200);
   const gitlabUpload = authenticate(env)
     .put(
-      `/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}?status=${generic.status}&select=package_file`,
+      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
       /\.test\s\{\}/gm
     )
     .reply(200, uploaded);
@@ -240,15 +230,12 @@ test.serial("Publish a release with generics and external storage provider (ftp)
   const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
   const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
   const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
-
-  const packageName = "release";
-  const packageVersion = nextRelease.version;
-  const fileName = "file.css";
-
+  const encodedVersion = encodeURIComponent(nextRelease.version);
   const uploaded = { file: { url: "ftp://drive.example.com/gitlab/file.css" } };
   const generic = { path: "file.css", label: "Style package", target: "generic_package", status: "hidden" };
   const assets = [generic];
-  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}`;
+  const encodedLabel = encodeURIComponent(generic.label);
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
   const gitlab = authenticate(env)
     .post(`/projects/${encodedRepoId}/releases`, {
       tag_name: nextRelease.gitTag,
@@ -266,7 +253,7 @@ test.serial("Publish a release with generics and external storage provider (ftp)
     .reply(200);
   const gitlabUpload = authenticate(env)
     .put(
-      `/projects/${encodedRepoId}/packages/generic/${packageName}/${packageVersion}/${fileName}?status=${generic.status}&select=package_file`,
+      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
       /\.test\s\{\}/gm
     )
     .reply(200, uploaded);
@@ -279,6 +266,246 @@ test.serial("Publish a release with generics and external storage provider (ftp)
   t.true(gitlabUpload.isDone());
   t.true(gitlab.isDone());
 });
+
+//=================================
+const makeSureThereIsNoExceptionThrown = test.macro(async (t, packageValue) => {
+  const cwd = "test/fixtures/files";
+  const owner = "test_user";
+  const repo = "test_repo";
+  const env = { GITLAB_TOKEN: "gitlab_token" };
+  const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body", version: "1.0.0" };
+  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
+  const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
+  const encodedVersion = encodeURIComponent(nextRelease.version);
+  const uploaded = { file: { url: "/uploads/file.css" } };
+  const generic = {
+    path: "file.css",
+    label: "Style package",
+    target: "generic_package",
+    package: packageValue,
+    status: "hidden",
+  };
+  const assets = [generic];
+  const encodedLabel = encodeURIComponent(generic.label);
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+  const gitlab = authenticate(env)
+    .post(`/projects/${encodedRepoId}/releases`, {
+      tag_name: nextRelease.gitTag,
+      description: nextRelease.notes,
+      assets: {
+        links: [
+          {
+            name: "Style package",
+            url: expectedUrl,
+            link_type: "package",
+          },
+        ],
+      },
+    })
+    .reply(200);
+  const gitlabUpload = authenticate(env)
+    .put(
+      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
+      /\.test\s\{\}/gm
+    )
+    .reply(200, uploaded);
+
+  const result = await publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger });
+
+  t.is(result.url, `https://gitlab.com/${owner}/${repo}/-/releases/${encodedGitTag}`);
+  t.deepEqual(t.context.log.args[0], ["Uploaded file: %s (%s)", expectedUrl, uploaded.file.url]);
+  t.deepEqual(t.context.log.args[1], ["Published GitLab release: %s", nextRelease.gitTag]);
+  t.true(gitlabUpload.isDone());
+  t.true(gitlab.isDone());
+});
+
+test.serial(
+  'Publish a release with generics and custom "package" config (false)',
+  makeSureThereIsNoExceptionThrown,
+  false
+);
+
+test.serial(
+  'Publish a release with generics and custom "package" config (true)',
+  makeSureThereIsNoExceptionThrown,
+  false
+);
+
+test.serial(
+  'Publish a release with generics and custom "package" config (null)',
+  makeSureThereIsNoExceptionThrown,
+  null
+);
+
+test.serial(
+  'Publish a release with generics and custom "package" config (undefined)',
+  makeSureThereIsNoExceptionThrown,
+  undefined
+);
+
+test.serial(
+  'Publish a release with generics and custom "package" config (empty string)',
+  makeSureThereIsNoExceptionThrown,
+  ""
+);
+
+test.serial(
+  'Publish a release with generics and custom "package" config (string contains space only)',
+  makeSureThereIsNoExceptionThrown,
+  "   "
+);
+
+test.serial(
+  'Publish a release with generics and custom "package" config (empty array)',
+  makeSureThereIsNoExceptionThrown,
+  []
+);
+
+const thowExceptionWhenAssetPackagePropertyIsInvalid = test.macro(async (t, packageValue) => {
+  const cwd = "test/fixtures/files";
+  const owner = "test_user";
+  const repo = "test_repo";
+  const env = { GITLAB_TOKEN: "gitlab_token" };
+  const nextRelease = { gitHead: "123", gitTag: "v1.0.0", notes: "Test release note body", version: "1.0.0" };
+  const options = { repositoryUrl: `https://gitlab.com/${owner}/${repo}.git` };
+  const encodedRepoId = encodeURIComponent(`${owner}/${repo}`);
+  const encodedGitTag = encodeURIComponent(nextRelease.gitTag);
+  const encodedVersion = encodeURIComponent(nextRelease.version);
+  const uploaded = { file: { url: "/uploads/file.css" } };
+  const generic = {
+    path: "file.css",
+    label: "Style package",
+    target: "generic_package",
+    package: packageValue,
+    status: "hidden",
+  };
+  const assets = [generic];
+  const encodedLabel = encodeURIComponent(generic.label);
+  const expectedUrl = `https://gitlab.com/api/v4/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}`;
+  const gitlab = authenticate(env)
+    .post(`/projects/${encodedRepoId}/releases`, {
+      tag_name: nextRelease.gitTag,
+      description: nextRelease.notes,
+      assets: {
+        links: [
+          {
+            name: "Style package",
+            url: expectedUrl,
+            link_type: "package",
+          },
+        ],
+      },
+    })
+    .reply(200);
+  const gitlabUpload = authenticate(env)
+    .put(
+      `/projects/${encodedRepoId}/packages/generic/release/${encodedVersion}/${encodedLabel}?status=${generic.status}&select=package_file`,
+      /\.test\s\{\}/gm
+    )
+    .reply(200, uploaded);
+
+  const error = await t.throwsAsync(publish({ assets }, { env, cwd, options, nextRelease, logger: t.context.logger }));
+  t.is(error.name, "SemanticReleaseError");
+  t.is(error.code, "EINVALIDASSETPACKAGEPROPERTY");
+  t.false(gitlabUpload.isDone());
+  t.false(gitlab.isDone());
+});
+
+test.serial(
+  'Publish a release with generics and custom "package" config - throw exception when package is an empty object ({})',
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {}
+);
+
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package is lack of field (no 'name')",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    version: "1.2.3-alpha.1",
+  }
+);
+
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package contain invalid field ('name' is null)",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    name: null,
+    version: "1.2.3-alpha.1",
+  }
+);
+
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package contain invalid field ('name' is undefined)",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    name: undefined,
+    version: "1.2.3-alpha.1",
+  }
+);
+
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package contain invalid field ('name' is an empty string)",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    name: "",
+    version: "1.2.3-alpha.1",
+  }
+);
+
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package contain invalid field ('name' is not a string)",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    name: [],
+    version: "1.2.3-alpha.1",
+  }
+);
+//--------------------
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package is lack of field (no 'version')",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    name: "1.2.3-alpha.1",
+  }
+);
+
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package contain invalid field ('version' is null)",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    version: null,
+    name: "1.2.3-alpha.1",
+  }
+);
+
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package contain invalid field ('version' is undefined)",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    version: undefined,
+    name: "1.2.3-alpha.1",
+  }
+);
+
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package contain invalid field ('version' is an empty string)",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    name: "",
+    version: "1.2.3-alpha.1",
+  }
+);
+
+test.serial(
+  "Publish a release with generics and custom \"package\" config - throw exception when package contain invalid field ('version' is not a string)",
+  thowExceptionWhenAssetPackagePropertyIsInvalid,
+  {
+    version: [],
+    name: "1.2.3-alpha.1",
+  }
+);
+//=================================
 
 test.serial("Publish a release with asset type and permalink", async (t) => {
   const cwd = "test/fixtures/files";
